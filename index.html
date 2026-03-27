@@ -7,7 +7,6 @@
     <style>
         :root {
             --primary: #a83279;
-            --secondary: #e94560;
             --scroll-bg: #fdf5e6;
             --text-color: #3e2723;
         }
@@ -22,7 +21,6 @@
             background: linear-gradient(135deg, #1a1025, #2d1b4e, #4a2569);
             color: white;
             font-family: 'Georgia', serif;
-            overflow-x: hidden;
             text-align: center;
         }
 
@@ -32,72 +30,199 @@
             font-size: 18px;
             border-radius: 50px;
             border: none;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, #a83279, #e94560);
             color: white;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: 0.3s;
+            z-index: 10;
         }
-        .btn:hover { transform: scale(1.05); }
 
         /* --- Countdown --- */
-        #countdownPage { display: none; font-size: 150px; font-weight: bold; font-family: sans-serif; }
+        #countdownPage { display: none; font-size: 100px; font-weight: bold; }
 
-        /* --- Cake Section --- */
+        /* --- Cake Page --- */
         #cakePage { display: none; flex-direction: column; align-items: center; }
-        .cake-wrapper { font-size: 130px; position: relative; cursor: pointer; display: inline-block; }
+        .cake-wrapper { font-size: 100px; position: relative; cursor: pointer; }
         .flame {
             position: absolute;
-            top: 15px;
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 35px;
+            font-size: 30px;
             animation: flicker 0.6s infinite alternate;
         }
-        
-        /* The Cat Helper */
         #catHelper {
             position: absolute;
-            right: -80px;
-            top: 30px;
-            font-size: 70px;
+            right: -70px;
+            top: 20px;
+            font-size: 60px;
             display: none;
-            animation: catSlide 0.5s forwards;
         }
 
-        /* Magical Sparkles */
         .sparkle {
             position: absolute;
-            font-size: 25px;
-            opacity: 0;
-            animation: sparkleBurst 1.2s ease-out forwards;
+            font-size: 20px;
+            pointer-events: none;
+            animation: sparkleBurst 1s forwards;
         }
 
-        /* --- The Scroll (Paper Effect) --- */
+        /* --- The Scroll --- */
         #scrollPage {
             display: none;
-            width: 90%;
-            max-width: 650px;
+            width: 85%;
+            max-width: 600px;
             background-color: var(--scroll-bg);
             color: var(--text-color);
-            padding: 60px 40px;
-            border-radius: 2px;
-            box-shadow: inset 0 0 80px rgba(0,0,0,0.1), 0 15px 35px rgba(0,0,0,0.6);
-            border-left: 12px solid #d7ccc8;
-            border-right: 12px solid #d7ccc8;
-            max-height: 85vh;
+            padding: 40px 25px;
+            border-left: 10px solid #d7ccc8;
+            border-right: 10px solid #d7ccc8;
+            max-height: 80vh;
             overflow-y: auto;
             text-align: left;
-            line-height: 1.8;
-            position: relative;
+            line-height: 1.6;
         }
 
         .fade-in { opacity: 0; animation: fadeInText 2s forwards; }
-        .delay-poem { animation-delay: 5s; } /* Poem appears after reading paragraph */
-
         .poem-box {
-            margin-top: 40px;
+            margin-top: 30px;
             font-style: italic;
             border-top: 1px dashed #a1887f;
-            padding-top: 30px;
-            white-space: pre
+            padding-top: 20px;
+            white-space: pre-wrap;
+            text-align: center;
+        }
+
+        #celebrationPage { display: none; }
+
+        /* Animations */
+        @keyframes fadeInText { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes flicker { from { opacity: 0.7; } to { opacity: 1; } }
+        @keyframes sparkleBurst {
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1); }
+        }
+        
+        #youtube-player { position: absolute; top: -1000px; left: -1000px; visibility: hidden; }
+    </style>
+</head>
+<body>
+
+    <div id="youtube-player"></div>
+    <audio id="meowSound" src="https://www.myinstants.com/media/sounds/meow-sound-effect1.mp3" preload="auto"></audio>
+
+    <div id="landingPage">
+        <button class="btn" onclick="startCountdown()">Open Your Gift, Shreya 🎁</button>
+    </div>
+
+    <div id="countdownPage">10</div>
+
+    <div id="cakePage">
+        <div class="cake-wrapper" onclick="catMagic()">
+            <span class="flame" id="flame">🔥</span>
+            <span id="catHelper">🐱💨</span>
+            <div id="sparkle-container"></div>
+            🎂
+        </div>
+        <p id="wishMsg" style="font-size: 18px; margin-top: 20px; color: #ffcccc;">Make a wish and click the cake! 🕯️</p>
+    </div>
+
+    <div id="scrollPage">
+        <div class="fade-in">
+            <h2 style="text-align:center; color: #a83279;">Happy Birthday, my love 🎂✨</h2>
+            <p>Today, I want to pause everything and just celebrate YOU, not just the day you were born, but the beautiful soul you are, and everything you mean to me. We may be miles apart, unable to hold hands or sit beside each other, but not a single moment goes by where I don't feel you close. You have been my biggest support, my loudest cheerleader, and my quietest comfort, all at once. When I doubted myself and my dreams, you believed in me harder than I ever could. When I felt like giving up, your words reached me like a light through the dark and reminded me why I started. You didn't just encourage me, you became the reason I push harder every single day.</p>
+            <p>What moves me most about you isn't just how much you love me, it's the kind of person you are to this world. You carry a heart so rare and so pure. You don't just care for people, you care for every soul around and beyond, the animals who have no voice, the ones the world often forgets. That tenderness in you, that quiet compassion, it tells me everything about who you are. You are genuinely, deeply, beautifully good.</p>
+            <p>And beyond all of that, you are my companion. My person. My love. The one I share my silence with, my fears, my hopes, my 2AM thoughts. Distance could never take that from us.</p>
+            <p>I wrote this for you today, with everything I feel:</p>
+        </div>
+
+        <div class="poem-box fade-in" style="animation-delay: 3s;">
+<strong>🌸 For The Girl Who Holds My World 🌸</strong>
+
+Across the miles, through these screens and skies,
+You've been the warmth behind my eyes.
+When dreams felt heavy, hard to hold,
+Your voice was gentle, brave and bold.
+You cheered for me when I fell small,
+You caught my heart before its fall.
+With every word, you lit my way
+You are the reason I chase each day.
+
+And oh, the way you love this earth,
+The birds, the strays, you know their worth.
+You are my both sun and moon
+Lighting my nights and warmth and noon,
+Your heart has room for all who roam,
+Wherever you are, feels like home.
+
+So here's to you, my sweet, my light,
+My favourite voice on lonely nights.
+Your eyes hold worlds I want to explore,
+With every glance, I love you more.
+
+So here's to you, on this golden day,
+May all your worries drift away.
+May joy surround you, tender and true —
+The world is brighter because of you.
+        </div>
+
+        <div class="fade-in" style="animation-delay: 6s; text-align: center; margin-top: 30px;">
+            <p><strong>Always and Foreva, Nyanpasu</strong></p>
+            <button class="btn" onclick="showFinal()">I love you! 🥳</button>
+        </div>
+    </div>
+
+    <div id="celebrationPage">
+        <h1 style="color: #f9a826;">🎉 HAPPY BIRTHDAY! 🎉</h1>
+        <div style="font-size: 80px;">🎂✨🐱</div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        const songBirthday = 'Z66NID_lXy4'; 
+        const songRewrite = 'V2f_W_664_k'; 
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0', width: '0', videoId: songBirthday,
+                playerVars: { 'autoplay': 0, 'controls': 0 }
+            });
+        }
+
+        function startCountdown() {
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('countdownPage').style.display = 'block';
+            let val = 10;
+            const itv = setInterval(() => {
+                val--;
+                document.getElementById('countdownPage').innerText = val;
+                if (val < 0) {
+                    clearInterval(itv);
+                    document.getElementById('countdownPage').style.display = 'none';
+                    document.getElementById('cakePage').style.display = 'flex';
+                }
+            }, 1000);
+        }
+
+        function catMagic() {
+            document.getElementById('meowSound').play();
+            document.getElementById('catHelper').style.display = 'block';
+            if(player) player.playVideo();
+
+            setTimeout(() => {
+                document.getElementById('flame').style.display = 'none';
+                setTimeout(() => {
+                    document.getElementById('cakePage').style.display = 'none';
+                    document.getElementById('scrollPage').style.display = 'block';
+                    if(player) player.loadVideoById(songRewrite);
+                }, 2000);
+            }, 800);
+        }
+
+        function showFinal() {
+            document.getElementById('scrollPage').style.display = 'none';
+            document.getElementById('celebrationPage').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
