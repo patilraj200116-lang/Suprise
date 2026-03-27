@@ -3,153 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Shreya 🌸</title>
+    <title>A Surprise for Shreya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #a83279;
-            --scroll-bg: #fdf5e6;
-            --text-color: #3e2723;
+            --primary-pink: #ff8fa3;
+            --soft-white: #fff5f6;
+            --text-color: #4a4a4a;
         }
 
-        body {
-            margin: 0; padding: 0; min-height: 100vh;
-            display: flex; justify-content: center; align-items: center;
-            background: #000; color: white;
-            font-family: 'Georgia', serif; text-align: center;
-            overflow: hidden;
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--soft-white);
+            color: var(--text-color);
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
-        .container { width: 95%; max-width: 800px; z-index: 10; }
-
-        .btn {
-            padding: 20px 50px; font-size: 22px; border-radius: 50px; border: none;
-            background: linear-gradient(45deg, #a83279, #e94560); color: white;
-            cursor: pointer; box-shadow: 0 4px 25px rgba(233, 69, 96, 0.4);
-            transition: 0.3s; font-weight: bold;
-        }
-        .btn:hover { transform: scale(1.05); filter: brightness(1.1); }
-
-        /* --- Sections --- */
-        #countdownPage, #videoPage, #cardPage { display: none; }
-
-        /* --- Countdown --- */
-        #countdownPage { font-size: 180px; font-weight: bold; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.5); }
-
-        /* --- Video --- */
-        #videoPage { width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; }
-        #hbVideo { width: 100%; max-height: 90vh; border-radius: 10px; }
-
-        /* --- Birthday Card (Scroll) --- */
-        #cardPage {
-            background: var(--scroll-bg); color: var(--text-color);
-            padding: 50px 30px; border-radius: 8px;
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.1), 0 20px 50px rgba(0,0,0,0.8);
-            border-left: 15px solid #d7ccc8; border-right: 15px solid #d7ccc8;
-            max-height: 85vh; overflow-y: auto; text-align: left;
-            line-height: 1.8; animation: slideUp 1.2s cubic-bezier(0.1, 0.7, 1.0, 0.1);
+        .section {
+            display: none;
+            width: 90%;
+            max-width: 600px;
+            animation: fadeIn 1.5s ease;
         }
 
-        .poem-box {
-            margin-top: 40px; font-style: italic; border-top: 1px dashed #a1887f;
-            padding-top: 30px; text-align: center; white-space: pre-wrap; font-size: 1.1em;
+        .active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideUp { from { transform: translateY(100vh); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        h1 { font-family: 'Dancing Script', cursive; color: var(--primary-pink); font-size: 2.5rem; }
+        
+        button {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 143, 163, 0.4);
+            transition: 0.3s;
+        }
+
+        button:hover { transform: scale(1.05); }
+
+        #countdown { font-size: 5rem; color: var(--primary-pink); font-weight: bold; }
+
+        video { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        .poem {
+            font-style: italic;
+            color: #d63384;
+            background: #fff0f3;
+            padding: 20px;
+            border-left: 4px solid var(--primary-pink);
+            margin: 20px 0;
+            white-space: pre-line;
+        }
+
+        .nyanpasu { font-weight: bold; color: var(--primary-pink); margin-top: 20px; display: block; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <audio id="bgSong" src="song.mp3" preload="auto"></audio>
-
-    <div id="welcomePage">
-        <h1 style="margin-bottom: 40px; font-size: 2.5em;">Welcome Shreya,<br>A surprise for you...</h1>
-        <button class="btn" onclick="startSequence()">Click Here ✨</button>
+    <div id="welcome" class="section active">
+        <h1>Welcome, Shreya...</h1>
+        <p>I have a little surprise waiting for you. Are you ready?</p>
+        <button onclick="startSequence()">Click Here ✨</button>
     </div>
 
-    <div id="countdownPage">3</div>
+    <div id="countdown-section" class="section">
+        <div id="countdown">3</div>
+    </div>
 
-    <div id="videoPage">
-        <video id="hbVideo" playsinline preload="auto">
+    <div id="video-section" class="section">
+        <video id="hb-video" controls>
             <source src="hb.mp4" type="video/mp4">
-            Your browser does not support the video.
+            Your browser does not support the video tag.
         </video>
     </div>
 
-    <div id="cardPage">
-        <h2 style="text-align:center; color: var(--primary); font-size: 2em;">Happy Birthday, My Love 🎂</h2>
-        <p>Today, I want to pause everything and just celebrate YOU. Not just the day you were born, but the beautiful soul you are and everything you mean to me.</p>
-        <p>We may be miles apart, but I feel you in every breath. You have been my biggest support, my loudest cheerleader, and my quietest comfort. When I doubted myself, you believed in me harder than I ever could. You are the reason I push harder every single day.</p>
-        <p>What moves me most about you is the kind of person you are to this world. You carry a heart so rare and so pure. That tenderness in you, that quiet compassion, it tells me everything about who you are. You are genuinely, deeply, beautifully good.</p>
-        
-        <div class="poem-box">
-<strong>🌸 For The Girl Who Holds My World 🌸</strong>
+    <div id="card-section" class="section">
+        <div class="card">
+            <h1>Happy Birthday, my love 🎂✨</h1>
+            <p>Today, I want to pause everything and just celebrate YOU, not just the day you were born, but the beautiful soul you are, and everything you mean to me.</p>
+            <p>We may be miles apart, unable to hold hands or sit beside each other, but not a single moment goes by where I don't feel you close. You have been my biggest support, my loudest cheerleader, and my quietest comfort, all at once. When I doubted myself and my dreams, you believed in me harder than I ever could.</p>
+            
+            <div class="poem">
+                ━━━━━━━━━━━━━━━━━━━━━━
+                🌸 For The Girl Who Holds My World 🌸
+                Across the miles, through these screens and skies,
+                You've been the warmth behind my eyes.
+                When dreams felt heavy, hard to hold,
+                Your voice was gentle, brave and bold.
+                You cheered for me when I fell small,
+                You caught my heart before its fall.
+                With every word, you lit my way
+                You are the reason I chase each day.
+                And oh, the way you love this earth,
+                The birds, the strays, you know their worth.
+                you are my both sun and moon
+                Lighting my nights and warmth and noon,
+                Your heart has room for all who roam,
+                Wherever you are, feels like home.
+                So here's to you, my sweet, my light,
+                My favourite voice on lonely nights.
+                Your eyes hold worlds I want to explore,
+                With every glance, I love you more.
+                So here's to you, on this golden day,
+                May all your worries drift away.
+                May joy surround you, tender and true —
+                The world is brighter because of you
+                You're beautiful in all you do
+                This world is better, because of you.
+                ━━━━━━━━━━━━━━━━━━━━━━
+            </div>
 
-Across the miles, through these screens and skies,
-You've been the warmth behind my eyes.
-When dreams felt heavy, hard to hold,
-Your voice was gentle, brave and bold.
-
-You are my both sun and moon,
-Lighting my nights and warmth at noon.
-Your heart has room for all who roam,
-Wherever you are, feels like home.
-
-The world is brighter because of you.
+            <p>Happy Birthday, Shreya. I may not be there to hold you today, but my heart is entirely with you celebrating you, adoring you, and counting the days until I can finally be beside you. You deserve every beautiful thing this world has to offer, and so much more. 🌸💛</p>
+            <p>I love you. More than distance. More than words. Always and Foreva.</p>
+            <span class="nyanpasu">Nyanpasu 🐾</span>
+            <br>
+            <button onclick="alert('I love you to the moon and back!')">Click for a final hug</button>
         </div>
-        
-        <p style="text-align: center; font-weight: bold; margin-top: 40px; color: var(--primary);">Always and Foreva, Nyanpasu</p>
     </div>
-</div>
 
-<script>
-    const song = document.getElementById('bgSong');
-    const video = document.getElementById('hbVideo');
+    <audio id="bg-song" src="song.mp3" loop></audio>
 
-    function startSequence() {
-        // Essential: Play and immediately pause to "unlock" audio on mobile
-        song.play();
-        song.pause();
-        song.currentTime = 0;
+    <script>
+        const welcome = document.getElementById('welcome');
+        const countdownSec = document.getElementById('countdown-section');
+        const countdownEl = document.getElementById('countdown');
+        const videoSec = document.getElementById('video-section');
+        const video = document.getElementById('hb-video');
+        const cardSec = document.getElementById('card-section');
+        const song = document.getElementById('bg-song');
 
-        document.getElementById('welcomePage').style.display = 'none';
-        document.getElementById('countdownPage').style.display = 'block';
+        function startSequence() {
+            welcome.classList.remove('active');
+            countdownSec.classList.add('active');
+            
+            let count = 3;
+            let timer = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownEl.innerText = count;
+                } else {
+                    clearInterval(timer);
+                    showVideo();
+                }
+            }, 1000);
+        }
 
-        let count = 3;
-        const timer = setInterval(() => {
-            count--;
-            if (count > 0) {
-                document.getElementById('countdownPage').innerText = count;
-            } else {
-                clearInterval(timer);
-                playTheVideo();
-            }
-        }, 1000);
-    }
-
-    function playTheVideo() {
-        document.getElementById('countdownPage').style.display = 'none';
-        document.getElementById('videoPage').style.display = 'flex';
-        video.play().catch(e => {
-            // Fallback for strict browser blocks
-            console.log("Auto-play blocked, showing video controls");
-            video.controls = true;
-        });
-
-        // Event listener: Trigger card when video finishes
-        video.onended = function() {
-            showTheCard();
-        };
-    }
-
-    function showTheCard() {
-        document.getElementById('videoPage').style.display = 'none';
-        document.getElementById('cardPage').style.display = 'block';
-        // Play background song
-        song.play();
-        song.loop = true;
-    }
-</script>
-
+        function showVideo() {
+            countdownSec.classList.remove('active');
+            videoSec.classList.add('active');
+            video.play();
+            
+            // When video ends, show the card and play song
+            video.onended = function() {
+                videoSec.classList.remove('active');
+                cardSec.classList.add('active');
+                song.play();
+            };
+        }
+    </script>
 </body>
 </html>
