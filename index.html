@@ -5,87 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Shreya 🌸</title>
     <style>
+        :root {
+            --primary: #a83279;
+            --scroll-bg: #fdf5e6;
+            --text-color: #3e2723;
+        }
+
         body {
-            margin: 0; background: #1a1025; color: white;
-            font-family: 'Georgia', serif; display: flex;
-            justify-content: center; align-items: center;
-            min-height: 100vh; text-align: center; overflow: hidden;
+            margin: 0; padding: 0; min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background: #000; color: white;
+            font-family: 'Georgia', serif; text-align: center;
+            overflow: hidden;
         }
-        .container { width: 90%; max-width: 600px; position: relative; z-index: 5; }
+
+        .container { width: 95%; max-width: 800px; z-index: 10; }
+
         .btn {
-            padding: 15px 35px; font-size: 18px; border-radius: 50px; border: none;
+            padding: 20px 50px; font-size: 22px; border-radius: 50px; border: none;
             background: linear-gradient(45deg, #a83279, #e94560); color: white;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            cursor: pointer; box-shadow: 0 4px 25px rgba(233, 69, 96, 0.4);
+            transition: 0.3s; font-weight: bold;
         }
-        #countdownPage, #cakePage, #scrollPage, #celebrationPage { display: none; }
-        #countdownPage { font-size: 120px; font-weight: bold; font-family: 'Courier New', monospace; color: #ff4d4d; }
-        
-        /* --- Realistic Cat & Cake --- */
-        .cake-wrapper { font-size: 120px; cursor: pointer; position: relative; display: inline-block; }
-        .flame { position: absolute; top: 15px; left: 45%; font-size: 35px; animation: flicker 0.3s infinite; }
-        #catBlow {
-            position: absolute; right: -150px; top: 20px; font-size: 80px;
-            transition: all 0.5s ease-out; opacity: 0;
-        }
-        .puff {
-            position: absolute; left: -30px; top: 10px; font-size: 30px;
-            opacity: 0; animation: puffAnim 0.5s forwards; display: none;
+        .btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        /* --- Sections --- */
+        #countdownPage, #videoPage, #cardPage { display: none; }
+
+        /* --- Countdown --- */
+        #countdownPage { font-size: 180px; font-weight: bold; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+
+        /* --- Video --- */
+        #videoPage { width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        #hbVideo { width: 100%; max-height: 90vh; border-radius: 10px; }
+
+        /* --- Birthday Card (Scroll) --- */
+        #cardPage {
+            background: var(--scroll-bg); color: var(--text-color);
+            padding: 50px 30px; border-radius: 8px;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.1), 0 20px 50px rgba(0,0,0,0.8);
+            border-left: 15px solid #d7ccc8; border-right: 15px solid #d7ccc8;
+            max-height: 85vh; overflow-y: auto; text-align: left;
+            line-height: 1.8; animation: slideUp 1.2s cubic-bezier(0.1, 0.7, 1.0, 0.1);
         }
 
-        /* --- Balloons --- */
-        .balloon {
-            position: absolute; bottom: -100px; font-size: 40px;
-            animation: floatUp 4s linear forwards;
+        .poem-box {
+            margin-top: 40px; font-style: italic; border-top: 1px dashed #a1887f;
+            padding-top: 30px; text-align: center; white-space: pre-wrap; font-size: 1.1em;
         }
 
-        /* --- Scroll --- */
-        #scrollPage {
-            background: #fdf5e6; color: #3e2723; padding: 30px;
-            border-radius: 5px; text-align: left; line-height: 1.6;
-            max-height: 75vh; overflow-y: auto; border-left: 10px solid #d7ccc8;
-        }
-        .poem { margin-top: 20px; font-style: italic; border-top: 1px solid #ccc; padding-top: 15px; text-align: center; white-space: pre-wrap; }
-
-        @keyframes flicker { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.1); } }
-        @keyframes puffAnim { 0% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.5) translateX(-20px); } }
-        @keyframes floatUp { to { transform: translateY(-120vh) translateX(var(--rx)); } }
+        @keyframes slideUp { from { transform: translateY(100vh); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
 
-<div id="balloon-container"></div>
-
 <div class="container">
-    <audio id="audioCountdown" src="https://www.soundjay.com/clock/sounds/shuttle-countdown-01.mp3"></audio>
-    <audio id="audioMeowHB" src="https://www.myinstants.com/media/sounds/happy-birthday-meow.mp3"></audio>
-    <audio id="audioRewrite" src="https://cdn.pixabay.com/audio/2022/05/27/audio_1ab7911682.mp3"></audio>
-    <audio id="audioMeow" src="https://www.myinstants.com/media/sounds/meow-sound-effect1.mp3"></audio>
+    <audio id="bgSong" src="song.mp3" preload="auto"></audio>
 
-    <div id="startPage">
-        <button class="btn" onclick="masterUnlock()">Open Your Gift, Shreya 🎁</button>
+    <div id="welcomePage">
+        <h1 style="margin-bottom: 40px; font-size: 2.5em;">Welcome Shreya,<br>A surprise for you...</h1>
+        <button class="btn" onclick="startSequence()">Click Here ✨</button>
     </div>
 
-    <div id="countdownPage">10</div>
+    <div id="countdownPage">3</div>
 
-    <div id="cakePage">
-        <div class="cake-wrapper" onclick="catAction()">
-            <span class="flame" id="flame">🔥</span>
-            <div id="catBlow">
-                <span class="puff" id="puffCloud">💨</span>
-                🐱
-            </div>
-            🎂
-        </div>
-        <p id="wishTxt" style="margin-top:20px; font-size: 20px;">Make a wish and click the cake! 🕯️</p>
+    <div id="videoPage">
+        <video id="hbVideo" playsinline preload="auto">
+            <source src="hb.mp4" type="video/mp4">
+            Your browser does not support the video.
+        </video>
     </div>
 
-    <div id="scrollPage">
-        <h3>Happy Birthday, my love 🎂✨</h3>
-        <p>Today, I want to pause everything and just celebrate YOU... We may be miles apart, unable to hold hands or sit beside each other, but not a single moment goes by where I don't feel you close. You have been my biggest support, my loudest cheerleader, and my quietest comfort. When I doubted myself and my dreams, you believed in me harder than I ever could. You didn't just encourage me, you became the reason I push harder every single day.</p>
-        <p>What moves me most about you is the kind of person you are to this world. You carry a heart so rare and so pure. You are genuinely, deeply, beautifully good.</p>
-        <p>And beyond all of that, you are my companion. My person. My love. The one I share my silence with, my fears, my hopes, my 2AM thoughts. Distance could never take that from us.</p>
+    <div id="cardPage">
+        <h2 style="text-align:center; color: var(--primary); font-size: 2em;">Happy Birthday, My Love 🎂</h2>
+        <p>Today, I want to pause everything and just celebrate YOU. Not just the day you were born, but the beautiful soul you are and everything you mean to me.</p>
+        <p>We may be miles apart, but I feel you in every breath. You have been my biggest support, my loudest cheerleader, and my quietest comfort. When I doubted myself, you believed in me harder than I ever could. You are the reason I push harder every single day.</p>
+        <p>What moves me most about you is the kind of person you are to this world. You carry a heart so rare and so pure. That tenderness in you, that quiet compassion, it tells me everything about who you are. You are genuinely, deeply, beautifully good.</p>
         
-        <div class="poem">
+        <div class="poem-box">
 <strong>🌸 For The Girl Who Holds My World 🌸</strong>
 
 Across the miles, through these screens and skies,
@@ -93,97 +90,64 @@ You've been the warmth behind my eyes.
 When dreams felt heavy, hard to hold,
 Your voice was gentle, brave and bold.
 
-And oh, the way you love this earth,
-The birds, the strays, you know their worth.
-You are my both sun and moon
-Lighting my nights and warmth and noon.
+You are my both sun and moon,
+Lighting my nights and warmth at noon.
+Your heart has room for all who roam,
+Wherever you are, feels like home.
 
-May joy surround you, tender and true —
 The world is brighter because of you.
         </div>
-        <br>
-        <center><button class="btn" onclick="showFinal()">I love you! 🥳</button></center>
-    </div>
-
-    <div id="celebrationPage">
-        <h1>🎉 HAPPY BIRTHDAY, SHREYA! 🎉</h1>
-        <div style="font-size: 100px;">🎂✨🐱</div>
+        
+        <p style="text-align: center; font-weight: bold; margin-top: 40px; color: var(--primary);">Always and Foreva, Nyanpasu</p>
     </div>
 </div>
 
 <script>
-    const cd = document.getElementById('audioCountdown');
-    const mHB = document.getElementById('audioMeowHB');
-    const rw = document.getElementById('audioRewrite');
-    const meow = document.getElementById('audioMeow');
+    const song = document.getElementById('bgSong');
+    const video = document.getElementById('hbVideo');
 
-    function masterUnlock() {
-        // Unlock all audio context
-        [cd, mHB, rw, meow].forEach(a => { a.play(); a.pause(); a.currentTime = 0; });
+    function startSequence() {
+        // Essential: Play and immediately pause to "unlock" audio on mobile
+        song.play();
+        song.pause();
+        song.currentTime = 0;
 
-        document.getElementById('startPage').style.display = 'none';
+        document.getElementById('welcomePage').style.display = 'none';
         document.getElementById('countdownPage').style.display = 'block';
-        cd.play();
 
-        let count = 10;
-        let timer = setInterval(() => {
+        let count = 3;
+        const timer = setInterval(() => {
             count--;
-            document.getElementById('countdownPage').innerText = count;
-            if (count <= 0) {
+            if (count > 0) {
+                document.getElementById('countdownPage').innerText = count;
+            } else {
                 clearInterval(timer);
-                document.getElementById('countdownPage').style.display = 'none';
-                document.getElementById('cakePage').style.display = 'block';
+                playTheVideo();
             }
         }, 1000);
     }
 
-    function spawnBalloons() {
-        const icons = ['🎈', '💖', '✨', '🌸'];
-        for(let i=0; i<15; i++) {
-            setTimeout(() => {
-                const b = document.createElement('div');
-                b.className = 'balloon';
-                b.innerText = icons[Math.floor(Math.random()*icons.length)];
-                b.style.left = Math.random() * 100 + 'vw';
-                b.style.setProperty('--rx', (Math.random() * 200 - 100) + 'px');
-                document.getElementById('balloon-container').appendChild(b);
-            }, i * 200);
-        }
+    function playTheVideo() {
+        document.getElementById('countdownPage').style.display = 'none';
+        document.getElementById('videoPage').style.display = 'flex';
+        video.play().catch(e => {
+            // Fallback for strict browser blocks
+            console.log("Auto-play blocked, showing video controls");
+            video.controls = true;
+        });
+
+        // Event listener: Trigger card when video finishes
+        video.onended = function() {
+            showTheCard();
+        };
     }
 
-    function catAction() {
-        const cat = document.getElementById('catBlow');
-        const puff = document.getElementById('puffCloud');
-        const flame = document.getElementById('flame');
-        
-        // 1. Cat slides in
-        cat.style.right = '10px';
-        cat.style.opacity = '1';
-        meow.play();
-
-        setTimeout(() => {
-            // 2. Cat puffs
-            puff.style.display = 'block';
-            // 3. Flame out & Meow HB starts
-            flame.style.display = 'none';
-            mHB.play();
-            spawnBalloons();
-            document.getElementById('wishTxt').innerText = "Meow! Happy Birthday! 🐱🎈";
-
-            // 4. Move to Scroll
-            setTimeout(() => {
-                document.getElementById('cakePage').style.display = 'none';
-                document.getElementById('scrollPage').style.display = 'block';
-                mHB.pause();
-                rw.play();
-            }, 5000);
-        }, 1000);
-    }
-
-    function showFinal() {
-        document.getElementById('scrollPage').style.display = 'none';
-        document.getElementById('celebrationPage').style.display = 'block';
-        spawnBalloons();
+    function showTheCard() {
+        document.getElementById('videoPage').style.display = 'none';
+        document.getElementById('cardPage').style.display = 'block';
+        // Play background song
+        song.play();
+        song.loop = true;
     }
 </script>
 
