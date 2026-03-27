@@ -3,94 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Surprise for Shreya</title>
+    <title>For Shreya 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-pink: #ff8fa3;
+            --deep-pink: #d63384;
             --soft-white: #fff5f6;
-            --text-color: #4a4a4a;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
+            margin: 0; padding: 0; height: 100%; width: 100%;
             font-family: 'Poppins', sans-serif;
             background-color: var(--soft-white);
-            color: var(--text-color);
-            overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            color: #4a4a4a;
+            display: flex; justify-content: center; align-items: center;
+            text-align: center; overflow: hidden;
         }
 
         .section {
-            display: none;
-            width: 90%;
-            max-width: 600px;
-            animation: fadeIn 1.5s ease;
+            display: none; width: 90%; max-width: 650px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         h1 { font-family: 'Dancing Script', cursive; color: var(--primary-pink); font-size: 2.5rem; }
         
         button {
-            background: var(--primary-pink);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 143, 163, 0.4);
-            transition: 0.3s;
+            background: var(--primary-pink); color: white; border: none;
+            padding: 12px 28px; border-radius: 30px; font-size: 1rem;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(255, 143, 163, 0.4);
+            transition: 0.3s; margin-top: 20px;
         }
 
-        button:hover { transform: scale(1.05); }
+        button:hover { background: var(--deep-pink); transform: translateY(-2px); }
 
-        #countdown { font-size: 5rem; color: var(--primary-pink); font-weight: bold; }
+        #countdown { font-size: 6rem; color: var(--primary-pink); font-weight: bold; }
 
-        video { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        video { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 
+        /* Birthday Card Styling */
         .card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-            max-height: 80vh;
-            overflow-y: auto;
-            text-align: left;
-            line-height: 1.6;
+            background: white; padding: 35px; border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            max-height: 80vh; overflow-y: auto; text-align: left;
+            border: 1px solid #ffeef0;
         }
 
-        .poem {
-            font-style: italic;
-            color: #d63384;
-            background: #fff0f3;
-            padding: 20px;
-            border-left: 4px solid var(--primary-pink);
-            margin: 20px 0;
-            white-space: pre-line;
+        .poem-box {
+            font-style: italic; color: var(--deep-pink);
+            background: #fffafa; padding: 25px;
+            border-left: 5px solid var(--primary-pink);
+            margin: 25px 0; white-space: pre-line; font-size: 0.95rem;
         }
 
-        .nyanpasu { font-weight: bold; color: var(--primary-pink); margin-top: 20px; display: block; }
+        .footer-note { font-weight: 600; color: var(--primary-pink); text-align: center; display: block; margin-top: 20px; }
+
+        /* Petal Animation */
+        .petal {
+            position: fixed; top: -10%; color: #ffb7c5;
+            user-select: none; z-index: 1000; pointer-events: none;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
     <div id="welcome" class="section active">
         <h1>Welcome, Shreya...</h1>
-        <p>I have a little surprise waiting for you. Are you ready?</p>
-        <button onclick="startSequence()">Click Here ✨</button>
+        <p>A little surprise is waiting for you.</p>
+        <button onclick="startSequence()">Click here to begin ✨</button>
     </div>
 
     <div id="countdown-section" class="section">
@@ -98,9 +85,8 @@
     </div>
 
     <div id="video-section" class="section">
-        <video id="hb-video" controls>
+        <video id="hb-video" playsinline>
             <source src="hb.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
     </div>
 
@@ -108,84 +94,102 @@
         <div class="card">
             <h1>Happy Birthday, my love 🎂✨</h1>
             <p>Today, I want to pause everything and just celebrate YOU, not just the day you were born, but the beautiful soul you are, and everything you mean to me.</p>
-            <p>We may be miles apart, unable to hold hands or sit beside each other, but not a single moment goes by where I don't feel you close. You have been my biggest support, my loudest cheerleader, and my quietest comfort, all at once. When I doubted myself and my dreams, you believed in me harder than I ever could.</p>
+            <p>We may be miles apart, unable to hold hands or sit beside each other, but not a single moment goes by where I don't feel you close. You have been my biggest support, my loudest cheerleader, and my quietest comfort, all at once.</p>
             
-            <div class="poem">
-                ━━━━━━━━━━━━━━━━━━━━━━
-                🌸 For The Girl Who Holds My World 🌸
-                Across the miles, through these screens and skies,
-                You've been the warmth behind my eyes.
-                When dreams felt heavy, hard to hold,
-                Your voice was gentle, brave and bold.
-                You cheered for me when I fell small,
-                You caught my heart before its fall.
-                With every word, you lit my way
-                You are the reason I chase each day.
-                And oh, the way you love this earth,
-                The birds, the strays, you know their worth.
-                you are my both sun and moon
-                Lighting my nights and warmth and noon,
-                Your heart has room for all who roam,
-                Wherever you are, feels like home.
-                So here's to you, my sweet, my light,
-                My favourite voice on lonely nights.
-                Your eyes hold worlds I want to explore,
-                With every glance, I love you more.
-                So here's to you, on this golden day,
-                May all your worries drift away.
-                May joy surround you, tender and true —
-                The world is brighter because of you
-                You're beautiful in all you do
-                This world is better, because of you.
-                ━━━━━━━━━━━━━━━━━━━━━━
+            <div class="poem-box">
+🌸 For The Girl Who Holds My World 🌸
+Across the miles, through these screens and skies,
+You've been the warmth behind my eyes.
+When dreams felt heavy, hard to hold,
+Your voice was gentle, brave and bold.
+You cheered for me when I fell small,
+You caught my heart before its fall.
+With every word, you lit my way
+You are the reason I chase each day.
+And oh, the way you love this earth,
+The birds, the strays, you know their worth.
+you are my both sun and moon
+Lighting my nights and warmth and noon,
+Your heart has room for all who roam,
+Wherever you are, feels like home.
+So here's to you, my sweet, my light,
+My favourite voice on lonely nights.
+Your eyes hold worlds I want to explore,
+With every glance, I love you more.
+So here's to you, on this golden day,
+May all your worries drift away.
+May joy surround you, tender and true —
+The world is brighter because of you
+You're beautiful in all you do
+This world is better, because of you.
             </div>
 
-            <p>Happy Birthday, Shreya. I may not be there to hold you today, but my heart is entirely with you celebrating you, adoring you, and counting the days until I can finally be beside you. You deserve every beautiful thing this world has to offer, and so much more. 🌸💛</p>
+            <p>Happy Birthday, Shreya. I may not be there to hold you today, but my heart is entirely with you. You deserve every beautiful thing this world has to offer, and so much more. 🌸💛</p>
             <p>I love you. More than distance. More than words. Always and Foreva.</p>
-            <span class="nyanpasu">Nyanpasu 🐾</span>
-            <br>
-            <button onclick="alert('I love you to the moon and back!')">Click for a final hug</button>
+            
+            <span class="footer-note">Nyanpasu 🐾</span>
+            <center><button onclick="nextPage()">Click for a final surprise</button></center>
         </div>
+    </div>
+
+    <div id="final-page" class="section">
+        <h1>I'll see you soon...</h1>
+        <p>Every day is a countdown until I can finally be beside you again.</p>
+        <div style="font-size: 3rem;">❤️</div>
     </div>
 
     <audio id="bg-song" src="song.mp3" loop></audio>
 
     <script>
-        const welcome = document.getElementById('welcome');
-        const countdownSec = document.getElementById('countdown-section');
-        const countdownEl = document.getElementById('countdown');
-        const videoSec = document.getElementById('video-section');
+        const sections = ['welcome', 'countdown-section', 'video-section', 'card-section', 'final-page'];
         const video = document.getElementById('hb-video');
-        const cardSec = document.getElementById('card-section');
         const song = document.getElementById('bg-song');
 
+        function showSection(id) {
+            sections.forEach(s => document.getElementById(s).classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
         function startSequence() {
-            welcome.classList.remove('active');
-            countdownSec.classList.add('active');
-            
+            showSection('countdown-section');
             let count = 3;
             let timer = setInterval(() => {
                 count--;
                 if (count > 0) {
-                    countdownEl.innerText = count;
+                    document.getElementById('countdown').innerText = count;
                 } else {
                     clearInterval(timer);
-                    showVideo();
+                    playVideo();
                 }
             }, 1000);
         }
 
-        function showVideo() {
-            countdownSec.classList.remove('active');
-            videoSec.classList.add('active');
+        function playVideo() {
+            showSection('video-section');
             video.play();
             
-            // When video ends, show the card and play song
             video.onended = function() {
-                videoSec.classList.remove('active');
-                cardSec.classList.add('active');
+                showSection('card-section');
                 song.play();
+                startPetals();
             };
+        }
+
+        function nextPage() {
+            showSection('final-page');
+        }
+
+        // Decorative Petals
+        function startPetals() {
+            for(let i=0; i<30; i++) {
+                let petal = document.createElement('div');
+                petal.innerHTML = '🌸';
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
+                petal.style.fontSize = Math.random() * 20 + 10 + 'px';
+                document.body.appendChild(petal);
+            }
         }
     </script>
 </body>
