@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Shreya 🌸</title>
+    <style>
+        :root {
+            --primary: #a83279;
+            --secondary: #e94560;
+            --bg: #1a1025;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--bg), #2d1b4e, #4a2569);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* --- Landing Page --- */
+        .btn {
+            padding: 18px 45px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(233, 69, 96, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn:hover { transform: scale(1.05); }
+
+        /* --- Card Page --- */
+        #cardPage {
+            display: none;
+            max-width: 650px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.98);
+            color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: left;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        .poem {
+            background: rgba(168, 50, 121, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            white-space: pre-wrap;
+        }
+
+        /* --- Countdown --- */
+        #countdownPage {
+            display: none;
+            font-size: 150px;
+            font-weight: bold;
+        }
+
+        /* --- Cake Page (The Wish) --- */
+        #cakePage {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #cake {
+            font-size: 140px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        #cake:hover { transform: scale(1.1); }
+
+        .cake-rise {
+            animation: riseUp 2s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+        }
+
+        /* --- Celebration Page --- */
+        #celebrationPage {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pop-text {
+            font-size: 50px;
+            color: #f9a826;
+            animation: popIn 0.6s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+        }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        @keyframes riseUp { from { transform: translateY(100vh); } to { transform: translateY(0); } }
+        @keyframes popIn { 0% { transform: scale(0); } 80% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        #youtube-player { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="youtube-player"></div>
+
+    <div id="landingPage">
+        <button class="btn" onclick="startExperience()">Open Your Gift, Shreya 🎁</button>
+    </div>
+
+    <div id="cardPage">
+        <h2 style="color:var(--primary); text-align:center;">Happy Birthday, my love 🎂</h2>
+        <p>Today, I want to pause everything and just celebrate YOU... You have been my biggest support, my loudest cheerleader, and my quietest comfort.</p>
+        
+        <div class="poem">
+<strong>🌸 For The Girl Who Holds My World 🌸</strong>
+
+Across the miles, through these screens and skies,
+You've been the warmth behind my eyes.
+When dreams felt heavy, hard to hold,
+Your voice was gentle, brave and bold.
+
+And oh, the way you love this earth,
+The birds, the strays, you know their worth.
+You are my both sun and moon
+Lighting my nights and warmth and noon.
+
+May joy surround you, tender and true —
+The world is brighter because of you.
+        </div>
+
+        <p style="text-align:right; font-weight:bold; color:var(--primary);">Always and Foreva,<br>Nyanpasu</p>
+
+        <div style="text-align:center; margin-top:30px;">
+            <button class="btn" onclick="goToCountdown()">Click for a surprise ✨</button>
+        </div>
+    </div>
+
+    <div id="countdownPage">10</div>
+
+    <div id="cakePage">
+        <div id="cake" class="cake-rise" onclick="startCelebration()">🎂</div>
+        <p id="instruction" style="font-size: 24px; margin-top:20px; color:#ffcccc;">Blow your candles, make a wish,<br>and click the cake! 🕯️✨</p>
+    </div>
+
+    <div id="celebrationPage">
+        <div class="pop-text">🎉 HAPPY BIRTHDAY! 🎉</div>
+        <div style="font-size: 100px; margin: 20px;">🎂</div>
+        <p style="font-size: 24px; max-width: 500px;">May all your dreams come true, Shreya. You deserve the world! 🌸💛</p>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        const rewriteTheStars = 'V2f_W_664_k'; 
+        const happyBirthday = 'Z66NID_lXy4'; 
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0', width: '0',
+                videoId: rewriteTheStars,
+                playerVars: { 'autoplay': 0, 'controls': 0 }
+            });
+        }
+
+        function startExperience() {
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('cardPage').style.display = 'block';
+            player.playVideo();
+        }
+
+        function goToCountdown() {
+            document.getElementById('cardPage').style.animation = "fadeOut 0.5s forwards";
+            setTimeout(() => {
+                document.getElementById('cardPage').style.display = 'none';
+                document.getElementById('countdownPage').style.display = 'block';
+                let count = 10;
+                const timer = setInterval(() => {
+                    count--;
+                    document.getElementById('countdownPage').innerText = count;
+                    if (count < 0) {
+                        clearInterval(timer);
+                        showCake();
+                    }
+                }, 1000);
+            }, 500);
+        }
+
+        function showCake() {
+            document.getElementById('countdownPage').style.display = 'none';
+            document.getElementById('cakePage').style.display = 'flex';
+        }
+
+        function startCelebration() {
+            document.getElementById('cakePage').style.display = 'none';
+            document.getElementById('celebrationPage').style.display = 'flex';
+            
+            // Switch to Happy Birthday Song
+            player.loadVideoById(happyBirthday);
+            player.playVideo();
+        }
+    </script>
+</body>
+</html>
