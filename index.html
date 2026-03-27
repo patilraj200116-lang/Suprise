@@ -6,72 +6,77 @@
     <title>For Shreya 🌸</title>
     <style>
         body {
-            margin: 0;
-            background: #1a1025;
-            color: white;
-            font-family: 'Georgia', serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            overflow-x: hidden;
+            margin: 0; background: #1a1025; color: white;
+            font-family: 'Georgia', serif; display: flex;
+            justify-content: center; align-items: center;
+            min-height: 100vh; text-align: center; overflow: hidden;
         }
-        .container { width: 90%; max-width: 600px; padding: 20px; }
+        .container { width: 90%; max-width: 600px; position: relative; z-index: 5; }
         .btn {
-            padding: 15px 35px;
-            font-size: 18px;
-            background: #a83279;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            padding: 15px 35px; font-size: 18px; border-radius: 50px; border: none;
+            background: linear-gradient(45deg, #a83279, #e94560); color: white;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         #countdownPage, #cakePage, #scrollPage, #celebrationPage { display: none; }
+        #countdownPage { font-size: 120px; font-weight: bold; font-family: 'Courier New', monospace; color: #ff4d4d; }
         
-        #countdownPage { font-size: 80px; font-weight: bold; }
-        
-        .cake-wrapper { font-size: 100px; cursor: pointer; position: relative; display: inline-block; }
-        .flame { position: absolute; top: 10px; left: 40%; animation: flicker 0.5s infinite; }
-        #cat { position: absolute; right: -70px; top: 20px; font-size: 50px; display: none; }
+        /* --- Realistic Cat & Cake --- */
+        .cake-wrapper { font-size: 120px; cursor: pointer; position: relative; display: inline-block; }
+        .flame { position: absolute; top: 15px; left: 45%; font-size: 35px; animation: flicker 0.3s infinite; }
+        #catBlow {
+            position: absolute; right: -150px; top: 20px; font-size: 80px;
+            transition: all 0.5s ease-out; opacity: 0;
+        }
+        .puff {
+            position: absolute; left: -30px; top: 10px; font-size: 30px;
+            opacity: 0; animation: puffAnim 0.5s forwards; display: none;
+        }
 
+        /* --- Balloons --- */
+        .balloon {
+            position: absolute; bottom: -100px; font-size: 40px;
+            animation: floatUp 4s linear forwards;
+        }
+
+        /* --- Scroll --- */
         #scrollPage {
-            background: #fdf5e6;
-            color: #3e2723;
-            padding: 30px;
-            border-radius: 5px;
-            text-align: left;
-            line-height: 1.6;
-            max-height: 70vh;
-            overflow-y: auto;
-            border-left: 10px solid #d7ccc8;
+            background: #fdf5e6; color: #3e2723; padding: 30px;
+            border-radius: 5px; text-align: left; line-height: 1.6;
+            max-height: 75vh; overflow-y: auto; border-left: 10px solid #d7ccc8;
         }
         .poem { margin-top: 20px; font-style: italic; border-top: 1px solid #ccc; padding-top: 15px; text-align: center; white-space: pre-wrap; }
 
-        @keyframes flicker { from { opacity: 0.8; } to { opacity: 1; } }
+        @keyframes flicker { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.1); } }
+        @keyframes puffAnim { 0% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.5) translateX(-20px); } }
+        @keyframes floatUp { to { transform: translateY(-120vh) translateX(var(--rx)); } }
     </style>
 </head>
 <body>
 
+<div id="balloon-container"></div>
+
 <div class="container">
-    <audio id="musicHB" src="https://www.soundjay.com/misc/sounds/happy-birthday-1.mp3"></audio>
-    <audio id="musicRewrite" src="https://www.soundborder.com/samples/RewriteTheStarsInstrumental.mp3"></audio>
-    <audio id="meow" src="https://www.myinstants.com/media/sounds/meow-sound-effect1.mp3"></audio>
+    <audio id="audioCountdown" src="https://www.soundjay.com/clock/sounds/shuttle-countdown-01.mp3"></audio>
+    <audio id="audioMeowHB" src="https://www.myinstants.com/media/sounds/happy-birthday-meow.mp3"></audio>
+    <audio id="audioRewrite" src="https://cdn.pixabay.com/audio/2022/05/27/audio_1ab7911682.mp3"></audio>
+    <audio id="audioMeow" src="https://www.myinstants.com/media/sounds/meow-sound-effect1.mp3"></audio>
 
     <div id="startPage">
-        <button class="btn" onclick="startCountdown()">Open Your Gift, Shreya 🎁</button>
+        <button class="btn" onclick="masterUnlock()">Open Your Gift, Shreya 🎁</button>
     </div>
 
     <div id="countdownPage">10</div>
 
     <div id="cakePage">
-        <div class="cake-wrapper" onclick="blowOut()">
+        <div class="cake-wrapper" onclick="catAction()">
             <span class="flame" id="flame">🔥</span>
-            <span id="cat">🐱💨</span>
+            <div id="catBlow">
+                <span class="puff" id="puffCloud">💨</span>
+                🐱
+            </div>
             🎂
         </div>
-        <p style="margin-top:20px;">Make a wish and click the cake! 🕯️</p>
+        <p id="wishTxt" style="margin-top:20px; font-size: 20px;">Make a wish and click the cake! 🕯️</p>
     </div>
 
     <div id="scrollPage">
@@ -79,8 +84,7 @@
         <p>Today, I want to pause everything and just celebrate YOU... We may be miles apart, unable to hold hands or sit beside each other, but not a single moment goes by where I don't feel you close. You have been my biggest support, my loudest cheerleader, and my quietest comfort. When I doubted myself and my dreams, you believed in me harder than I ever could. You didn't just encourage me, you became the reason I push harder every single day.</p>
         <p>What moves me most about you is the kind of person you are to this world. You carry a heart so rare and so pure. You are genuinely, deeply, beautifully good.</p>
         <p>And beyond all of that, you are my companion. My person. My love. The one I share my silence with, my fears, my hopes, my 2AM thoughts. Distance could never take that from us.</p>
-        <p>I wrote this for you today, with everything I feel:</p>
-
+        
         <div class="poem">
 <strong>🌸 For The Girl Who Holds My World 🌸</strong>
 
@@ -98,19 +102,29 @@ May joy surround you, tender and true —
 The world is brighter because of you.
         </div>
         <br>
-        <button class="btn" onclick="showFinal()">I love you! 🥳</button>
+        <center><button class="btn" onclick="showFinal()">I love you! 🥳</button></center>
     </div>
 
     <div id="celebrationPage">
         <h1>🎉 HAPPY BIRTHDAY, SHREYA! 🎉</h1>
-        <div style="font-size: 80px;">🎂✨🐱</div>
+        <div style="font-size: 100px;">🎂✨🐱</div>
     </div>
 </div>
 
 <script>
-    function startCountdown() {
+    const cd = document.getElementById('audioCountdown');
+    const mHB = document.getElementById('audioMeowHB');
+    const rw = document.getElementById('audioRewrite');
+    const meow = document.getElementById('audioMeow');
+
+    function masterUnlock() {
+        // Unlock all audio context
+        [cd, mHB, rw, meow].forEach(a => { a.play(); a.pause(); a.currentTime = 0; });
+
         document.getElementById('startPage').style.display = 'none';
         document.getElementById('countdownPage').style.display = 'block';
+        cd.play();
+
         let count = 10;
         let timer = setInterval(() => {
             count--;
@@ -123,23 +137,53 @@ The world is brighter because of you.
         }, 1000);
     }
 
-    function blowOut() {
-        document.getElementById('meow').play();
-        document.getElementById('musicHB').play();
-        document.getElementById('cat').style.display = 'block';
-        document.getElementById('flame').style.display = 'none';
+    function spawnBalloons() {
+        const icons = ['🎈', '💖', '✨', '🌸'];
+        for(let i=0; i<15; i++) {
+            setTimeout(() => {
+                const b = document.createElement('div');
+                b.className = 'balloon';
+                b.innerText = icons[Math.floor(Math.random()*icons.length)];
+                b.style.left = Math.random() * 100 + 'vw';
+                b.style.setProperty('--rx', (Math.random() * 200 - 100) + 'px');
+                document.getElementById('balloon-container').appendChild(b);
+            }, i * 200);
+        }
+    }
+
+    function catAction() {
+        const cat = document.getElementById('catBlow');
+        const puff = document.getElementById('puffCloud');
+        const flame = document.getElementById('flame');
+        
+        // 1. Cat slides in
+        cat.style.right = '10px';
+        cat.style.opacity = '1';
+        meow.play();
 
         setTimeout(() => {
-            document.getElementById('cakePage').style.display = 'none';
-            document.getElementById('scrollPage').style.display = 'block';
-            document.getElementById('musicHB').pause();
-            document.getElementById('musicRewrite').play();
-        }, 3000);
+            // 2. Cat puffs
+            puff.style.display = 'block';
+            // 3. Flame out & Meow HB starts
+            flame.style.display = 'none';
+            mHB.play();
+            spawnBalloons();
+            document.getElementById('wishTxt').innerText = "Meow! Happy Birthday! 🐱🎈";
+
+            // 4. Move to Scroll
+            setTimeout(() => {
+                document.getElementById('cakePage').style.display = 'none';
+                document.getElementById('scrollPage').style.display = 'block';
+                mHB.pause();
+                rw.play();
+            }, 5000);
+        }, 1000);
     }
 
     function showFinal() {
         document.getElementById('scrollPage').style.display = 'none';
         document.getElementById('celebrationPage').style.display = 'block';
+        spawnBalloons();
     }
 </script>
 
